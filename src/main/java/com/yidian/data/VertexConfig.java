@@ -24,6 +24,7 @@ public class VertexConfig {
     private boolean windowEnable;
     private String WindowType;
     private long windowSize;
+    private long windowSlidSize;
     private String triggerId;
 
     private String sourceType;

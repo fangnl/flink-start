@@ -24,10 +24,8 @@ import java.util.stream.Collectors;
 public class UserProfileContext {
     private final StreamExecutionEnvironment executionEnvironment;
     Dag<VertexConfig> dag = new Dag<>();
-    public Config config;
-    public HashMap<VertexConfig, DataStream<Tuple2<String, byte[]>>> streamMap;
-    public Map<String, Tuple2<VertexConfig, Class<? extends Object>>> configMap;
-    public List<VertexConfig> globalConfig;
+    public  HashMap<VertexConfig, DataStream<Tuple2<String, byte[]>>> streamMap;
+    public  static Map<String, Tuple2<VertexConfig, Class<? extends Object>>> configMap;
 
 
     private UserProfileContext() {
@@ -90,7 +88,6 @@ public class UserProfileContext {
             annotationSet.forEach(a -> generateVertexConfig(a, vertexConfig));
             configMap.put(vertexConfig.getId(), new Tuple2<>(vertexConfig, functionClass));
         }
-
         dAGScheduler();
     }
 
@@ -170,23 +167,18 @@ public class UserProfileContext {
     }
 
     public void setGlobalConfig() {
-        String json = JSON.toJSONString(globalConfig);
-        HashMap<String, String> map = new HashMap<>();
-        map.put("config", json);
-        ParameterTool parameterTool = ParameterTool.fromMap(map);
+        Map<String, String> globalConfig = configMap.values().stream()
+                .map(t -> t.f0).
+                collect(Collectors.toMap(VertexConfig::getId, JSON::toJSONString));
+        ParameterTool parameterTool = ParameterTool.fromMap(globalConfig);
         getEnvironment().getConfig().setGlobalJobParameters(parameterTool);
     }
 
-    public void setGlobalConfig(Config config) {
-        Map<String, String> configValueMap =
-                config.entrySet().stream().collect(Collectors.toMap(Map.Entry::getKey, v -> v.getValue().unwrapped().toString()));
-        ParameterTool parameterTool = ParameterTool.fromMap(configValueMap);
-        getEnvironment().getConfig().setGlobalJobParameters(parameterTool);
-    }
+
 
 
     public void execute() throws Exception {
-//        setGlobalConfig(config);
+        setGlobalConfig();
         executionEnvironment.execute();
     }
 
