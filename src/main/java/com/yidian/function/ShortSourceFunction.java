@@ -10,7 +10,7 @@ import org.apache.flink.streaming.api.functions.source.RichParallelSourceFunctio
 import java.security.SecureRandom;
 import java.util.List;
 
-@Operator(name = "source",id = "0" ,para = 3,childId = "2")
+ @Operator(name = "source",id = "0" ,para = 3,childId = "2")
 public class ShortSourceFunction extends RichParallelSourceFunction<Tuple2<String,byte []>> {
   private boolean cancel = true;
   private static final String AB = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";

@@ -11,8 +11,9 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <scala.binnery>2.12</scala.binnery>
-        <flink.version>1.14.0</flink.version>
+        <scala.binnery>2.11</scala.binnery>
+        <flink.version>1.13.1</flink.version>
+        <kafka.version>2.2.0</kafka.version>
     </properties>
 
 
@@ -23,6 +24,7 @@
             <artifactId>flink-java</artifactId>
             <version>${flink.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.typesafe</groupId>
             <artifactId>config</artifactId>
@@ -35,12 +37,14 @@
             <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-statebackend-rocksdb_${scala.binnery}</artifactId>
             <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-clients_${scala.binnery}</artifactId>
@@ -64,6 +68,7 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-runtime-web_${scala.binnery}</artifactId>

@@ -1,10 +1,7 @@
 package com.yidian;
 
-import com.typesafe.config.Config;
-import com.typesafe.config.ConfigFactory;
 import com.yidian.common.UserProfileContext;
 
-import java.io.File;
 
 
 public class App {
@@ -12,6 +9,7 @@ public class App {
         UserProfileContext context = UserProfileContext.getOrCreateContext();
 //        Config config = ConfigFactory.parseFile(new File("/Users/admin/Downloads/other/flink-start/src/main/resources/application.conf"));
 //        context.run(config);
+        context.setUserConfigPath("/Users/admin/Desktop/log4j.properties");
         context.run(App.class);
         context.execute();
 
