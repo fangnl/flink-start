@@ -39,9 +39,10 @@ public class UserProfileContext {
 
 
   private UserProfileContext() {
-    Configuration configuration = new Configuration();
-    configuration.setBoolean("rest.flamegraph.enabled", true);
-    executionEnvironment = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(configuration);
+//    Configuration configuration = new Configuration();
+//    configuration.setBoolean("rest.flamegraph.enabled", true);
+//    executionEnvironment = StreamExecutionEnvironment.createLocalEnvironmentWithWebUI(configuration);
+    executionEnvironment=StreamExecutionEnvironment.getExecutionEnvironment();
     configMap = new HashMap<>();
     streamMap = new HashMap<>();
     URL resource = UserProfileContext.class.getClassLoader().getResource(userConfigPath);

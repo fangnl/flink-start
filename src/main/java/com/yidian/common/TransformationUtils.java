@@ -225,12 +225,11 @@ public class  TransformationUtils {
       List<String> topicList = Arrays.asList(topics.split(","));
       properties.remove("topics");
       properties.remove("id");
-      FlinkKafkaConsumer<byte[]> flinkKafkaConsumer =
+      FlinkKafkaConsumer<Tuple2<String, byte[]>> flinkKafkaConsumer =
           new FlinkKafkaConsumer<>(topicList, ByteSerializationSchema.create(), properties);
       return  env.addSource(flinkKafkaConsumer)
           .name(config.getName())
-          .setParallelism(config.getParallelism())
-          .map(TupleFactory::createTuple);
+          .setParallelism(config.getParallelism());
     }
     Object o = aClass.getDeclaredConstructor().newInstance();
     @SuppressWarnings("unchecked")
